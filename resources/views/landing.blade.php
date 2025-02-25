@@ -53,6 +53,10 @@
   Fazer Cotação
   <i data-lucide="arrow-right" class="w-4 h-4"></i>
 </a>
+<a href="{{ route('login') }}" class="bg-select-lime text-black px-6 py-2 rounded-full hover:bg-select-lime/90 transition-colors flex items-center gap-2">
+  Painel do Cliente
+  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+</a>
 
       </nav>
     </div>
