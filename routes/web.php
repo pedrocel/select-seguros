@@ -37,6 +37,10 @@ Route::get('/cotacao', function () {
     return view('cotacao');
 }); 
 
+Route::get('/painel01', function () {
+    return view('dashboard001');
+}); 
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
