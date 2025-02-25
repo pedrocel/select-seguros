@@ -49,10 +49,11 @@
         <a href="#" class="text-white/80 hover:text-select-lime transition-colors">Sobre</a>
         <a href="#" class="text-white/80 hover:text-select-lime transition-colors">Coberturas</a>
         <a href="#" class="text-white/80 hover:text-select-lime transition-colors">Contato</a>
-        <button class="bg-select-lime text-black px-6 py-2 rounded-full hover:bg-select-lime/90 transition-colors flex items-center gap-2">
-          Fazer Cotação
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </button>
+        <a href="/cotacao" class="bg-select-lime text-black px-6 py-2 rounded-full hover:bg-select-lime/90 transition-colors flex items-center gap-2">
+  Fazer Cotação
+  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+</a>
+
       </nav>
     </div>
   </header>
@@ -72,10 +73,11 @@
             A Select Seguros não vende apenas proteção, ela entrega tranquilidade, liberdade e inovação. Nosso compromisso é tornar o seguro simples, rápido e flexível.
           </p>
           <div class="flex flex-wrap gap-4">
-            <button class="bg-select-lime text-black px-8 py-4 rounded-full text-lg hover:bg-select-lime/90 transition-colors flex items-center gap-2 font-medium">
+            <a href="/cotacao" class="bg-select-lime text-black px-8 py-4 rounded-full text-lg hover:bg-select-lime/90 transition-colors flex items-center gap-2 font-medium">
               Fazer cotação agora
               <i data-lucide="arrow-right" class="w-5 h-5"></i>
-            </button>
+            </a>
+
             <button class="border border-white/20 bg-white/5 backdrop-blur-sm text-white px-8 py-4 rounded-full text-lg hover:bg-white/10 transition-colors flex items-center gap-2">
               Saiba mais
               <i data-lucide="chevron-right" class="w-5 h-5"></i>
