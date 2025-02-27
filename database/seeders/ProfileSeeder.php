@@ -18,12 +18,12 @@ class ProfileSeeder extends Seeder
         // Definir os perfis
         $profiles = [
             ['name' => 'Administrador Geral', 'status' => 1],
-            ['name' => 'Diretor Escola', 'status' => 1],
+            ['name' => 'Diretor', 'status' => 1],
             ['name' => 'Colaborador', 'status' => 1],
             ['name' => 'Financeiro', 'status' => 1],
-            ['name' => 'Professor', 'status' => 1],
-            ['name' => 'Responsável', 'status' => 1],
-            ['name' => 'Aluno', 'status' => 1],
+            ['name' => 'Cliente', 'status' => 1],
+            ['name' => 'Afiliado', 'status' => 1],
+            ['name' => 'Vendedor', 'status' => 1],
         ];
 
         // Inserir os perfis na tabela profiles

@@ -44,7 +44,7 @@ class RedirectByProfile
                     }
                     break;
 
-                case 'Diretor Escola':
+                case 'Diretor':
                     if (!$request->is('diretor/*')) { // Evita redirecionar para a própria rota
                         return redirect('/diretor/dashboard');
                     }

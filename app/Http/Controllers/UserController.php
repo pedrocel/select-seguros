@@ -11,7 +11,9 @@ use App\Models\ResponsibleType;
 use App\Models\StudentResponsible;
 use App\Models\User;
 use App\Models\UserOrganizationModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -43,10 +45,54 @@ class UserController extends Controller
         return view('users.show', compact('user', 'profiles', 'responsibleTypes', 'documentTypes', 'documents', 'faceEvents'));    
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);  // Obtém todos os usuários
-        return view('users.index', compact('users'));  // Exibe a lista de usuários
+
+        $totalUsers = User::count();
+
+        // 2. Quantidade de novos clientes este mês
+        $newClientsThisMonth = User::whereMonth('created_at', Carbon::now()->month)
+                                    ->whereYear('created_at', Carbon::now()->year)
+                                    ->count();
+    
+        // 3. Porcentagem de novos clientes este mês
+        $percentageNewClients = $totalUsers > 0 ? ($newClientsThisMonth / $totalUsers) * 100 : 0;
+    
+        // 5. Expectativa total de clientes no ano atual (exemplo de projeção)
+        // Supondo que o crescimento médio de novos clientes por mês seja 5%
+        $growthRate = 0.05;
+        $expectedClients = $totalUsers * pow(1 + $growthRate, Carbon::now()->month);
+
+
+
+        
+
+        $query = User::query();
+
+        // Verificando se há um termo de pesquisa
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('email', 'LIKE', "%{$search}%")
+                ->orWhere('Whatsapp', 'LIKE', "%{$search}%")
+                ->orWhere('cpf', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $users = $query->get();  // Obtendo os usuários filtrados
+
+        if ($request->ajax()) {
+            // Retornando a nova lista de usuários para a resposta AJAX
+            return response()->json([
+                'html' => view('director.users.create-user-partial', compact('users'))->render()
+            ]);
+        }
+
+       
+        $profiles = PerfilModel::all();
+
+        return view('director.users.index', compact('users', 'profiles', 'totalUsers', 'newClientsThisMonth', 'percentageNewClients', 'expectedClients'));
     }
 
     public function create($organization_id)
@@ -57,8 +103,13 @@ class UserController extends Controller
         return view('users.create', compact('profiles', 'organizations', 'organization'));
     }
 
-    public function store(Request $request, $organization_id)
+    public function store(Request $request)
     {
+        
+        $user = Auth::user();
+        $org = UserOrganizationModel::where('user_id', $user->id)->first();
+        $organization = OrganizationModel::find($org->organization_id); // Ajuste conforme necessário para obter a organização correta
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -75,11 +126,41 @@ class UserController extends Controller
 
         UserOrganizationModel::create([
             'user_id' => $user->id,
-            'organization_id' => $organization_id, 
+            'organization_id' => $organization->id, 
             'status' => 1
         ]);
 
-        return redirect()->route('admin.organizacoes.show', $organization_id)->with('success', 'Usuário criado e associado com sucesso!');
+        return redirect()->route('diretor.users.index', $organization->id)->with('status', 'success')->with('message', 'Usuário cadastrado com sucesso!');
+    }
+
+    public function storeAdm(Request $request)
+    {
+        
+        $user = Auth::user();
+        $org = UserOrganizationModel::where('user_id', $user->id)->first();
+        $organization = OrganizationModel::first(); // Ajuste conforme necessário para obter a organização correta
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'whatsapp'       => $request->whatsapp,
+            'cpf'            => $request->cpf,
+            'birthdate'     => $request->birthdate,
+            'is_emancipated' => false, // Retorna true se o checkbox estiver marcado
+        ]);
+
+        // Relacionamento com o perfil
+        $user->perfis()->attach($request->profile_id, ['is_atual' => true, 'status' => 1]);
+        $user->save();
+
+        UserOrganizationModel::create([
+            'user_id' => $user->id,
+            'organization_id' => $organization->id, 
+            'status' => 1
+        ]);
+
+        return redirect()->route('admin.organizacoes.show', $organization->id)->with('success', 'Usuário criado e associado com sucesso!');
     }
 
     public function edit(User $user)

@@ -74,4 +74,8 @@ class DashboardController extends Controller
 
         return view('director.dashboard', compact('user', 'userOrganization', 'profiles', 'org', 'biometrias', 'percentualBiometria', 'acessosHoje', 'percentualAcessosHoje', 'mediaPresenca30Dias'));   
     }
+
+    public function getVendas(){
+        return view ('director.reports.vendas');
+    }
 }

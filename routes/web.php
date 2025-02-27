@@ -73,7 +73,7 @@ Route::middleware(['auth', RedirectByProfile::class])->prefix('admin')->group(fu
     Route::get('users/{user}', [UserController::class, 'show'])->name('admin.users.show');
     Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('users/create/{organization_id}', [UserController::class, 'create'])->name('admin.users.create');
-    Route::post('users/create/{organization_id}', [UserController::class, 'store'])->name('admin.users.store');
+    Route::post('users/create/{organization_id}', [UserController::class, 'storeAdm'])->name('admin.users.store');
     Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
@@ -124,7 +124,26 @@ Route::middleware(['auth', RedirectByProfile::class])->prefix('responsavel')->gr
 });
 
 Route::middleware(['auth', RedirectByProfile::class])->prefix('diretor')->group(function () {
+
+
+
+    Route::get('users/{user}', [UserController::class, 'show'])->name('diretor.users.show');
+    Route::get('users', [UserController::class, 'index'])->name('diretor.users.index');
+    Route::get('users/create/{organization_id}', [UserController::class, 'create'])->name('diretor.users.create');
+    Route::post('users/create/', [UserController::class, 'store'])->name('diretor.users.store');
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('diretor.users.edit');
+    Route::put('users/', [UserController::class, 'update'])->name('diretor.users.update');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('diretor.users.destroy');
+    Route::post('users/{user}/addResponsible', [UserController::class, 'addResponsible'])->name('diretor.users.addResponsible');
+    Route::post('users/{user}/addStudent', [UserController::class, 'addStudent'])->name('diretor.users.addStudent');
+    Route::post('/user/update-facial-image/{userId}', [UserController::class, 'updateFacialImage'])->name('user.updateFacialImage');
+
+
+
     Route::get('/dashboard', [DirectorDashboardController::class, 'index'])->name('director.dashboard');
+    Route::get('/vendas', [DirectorDashboardController::class, 'getVendas'])->name('director.vendas');
+
+
 
     Route::post('/perfil/update-facial-image', [ResponsibleProfileController::class, 'updateImage'])->name('director.updateImage');
 
