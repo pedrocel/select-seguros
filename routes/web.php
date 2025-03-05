@@ -23,6 +23,7 @@ use App\Http\Controllers\Director\StudentsController as DirectorStudentsControll
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FaceEventController;
 use App\Http\Controllers\FacialImageController;
+use App\Http\Controllers\LeadInputController;
 use App\Http\Controllers\Responsible\ProfileController as ResponsibleProfileController;
 use App\Http\Controllers\Student\CalendarController;
 use App\Http\Controllers\Student\CourseController;
@@ -35,6 +36,9 @@ Route::get('/', function () {
 
 Route::get('/cotacao', function () {
     return view('cotacao');
+}); 
+Route::get('/obrigado', function () {
+    return view('obrigado');
 }); 
 
 Route::get('/painel01', function () {
@@ -195,3 +199,4 @@ Route::post('/student/register', [CustomLoginController::class, 'register'])->na
 
 require __DIR__.'/auth.php';
 Route::post('/webhook/face-event', action: [FaceEventController::class, 'handleWebhook']);
+Route::post('/lead-create', [LeadInputController::class, 'store']);

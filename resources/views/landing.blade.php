@@ -56,11 +56,11 @@
           </div>
           
           <div class="flex items-center space-x-4">
-            <a href="#" class="bg-select-green text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors">
-              Fazer Cotação <i class="fas fa-arrow-right ml-1"></i>
+            <a href="cotacao" class="bg-select-green text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors">
+              Fazer Cotação<i class="fas fa-arrow-right ml-1"></i>
             </a>
             <a href="/login" class="bg-transparent border border-select-blue text-select-blue px-4 py-2 rounded-full text-sm font-medium hover:bg-select-blue hover:bg-opacity-10 transition-colors">
-              Painel do Cliente <i class="fas fa-user-shield ml-1"></i>
+              Painel do Cliente<i class="fas fa-user-shield ml-1"></i>
             </a>
           </div>
         </div>
