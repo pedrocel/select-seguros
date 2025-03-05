@@ -80,7 +80,7 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->get();  // Obtendo os usuários filtrados
+        $users = $query->paginate(5);  // Obtendo os usuários filtrados
 
         if ($request->ajax()) {
             // Retornando a nova lista de usuários para a resposta AJAX
@@ -165,27 +165,19 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));  // Exibe o formulário para editar um usuário
-    } 
+        return view('director.users.detail', compact('user'));  // Exibe o formulário para editar um usuário
+    }
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
-
         $user->name = $request->name;
-        $user->email = $request->email;
-
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
+        $user->whatsapp = $request->whatsapp;
+        $user->cpf = $request->cpf;
+        $user->birthdate = $request->birthdate;
 
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
+        return redirect()->route('diretor.users.index')->with('status', 'success')->with('message', 'Usuário atualizado com sucesso!');
     }
 
     public function destroy(User $user)

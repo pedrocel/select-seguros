@@ -132,7 +132,7 @@ Route::middleware(['auth', RedirectByProfile::class])->prefix('diretor')->group(
     Route::get('users/create/{organization_id}', [UserController::class, 'create'])->name('diretor.users.create');
     Route::post('users/create/', [UserController::class, 'store'])->name('diretor.users.store');
     Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('diretor.users.edit');
-    Route::put('users/', [UserController::class, 'update'])->name('diretor.users.update');
+    Route::post('users/{user}/update', [UserController::class, 'update'])->name('director.user.update.post');
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('diretor.users.destroy');
     Route::post('users/{user}/addResponsible', [UserController::class, 'addResponsible'])->name('diretor.users.addResponsible');
     Route::post('users/{user}/addStudent', [UserController::class, 'addStudent'])->name('diretor.users.addStudent');
