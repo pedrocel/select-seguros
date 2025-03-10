@@ -269,7 +269,7 @@
               <p class="font-medium">Como funciona o processo de cotação do seguro auto?</p>
               <i class="fas fa-plus text-select-green transition-transform duration-300"></i>
             </button>
-            <div class="faq-answer px-4 pb-4">
+            <div class="faq-answer px-4">
               <p class="text-select-beige">
                 Nosso processo de cotação é 100% digital e leva menos de 5 minutos. Basta informar os dados do seu veículo e suas informações pessoais. Nossa tecnologia analisa instantaneamente as melhores opções e apresenta a cotação ideal para o seu perfil.
               </p>
@@ -281,7 +281,7 @@
               <p class="font-medium">Quais são as coberturas incluídas no seguro auto da Select?</p>
               <i class="fas fa-plus text-select-green transition-transform duration-300"></i>
             </button>
-            <div class="faq-answer px-4 pb-4">
+            <div class="faq-answer px-4">
               <p class="text-select-beige">
                 Nosso seguro auto inclui cobertura contra colisão, roubo, furto, incêndio, danos a terceiros, assistência 24h com guincho ilimitado, carro reserva, cobertura para vidros, faróis e lanternas, indenização por perda total conforme tabela FIPE e muito mais. Você pode personalizar sua apólice de acordo com suas necessidades.
               </p>
@@ -293,7 +293,7 @@
               <p class="font-medium">Como acionar o seguro em caso de sinistro ou emergência?</p>
               <i class="fas fa-plus text-select-green transition-transform duration-300"></i>
             </button>
-            <div class="faq-answer px-4 pb-4">
+            <div class="faq-answer px-4">
               <p class="text-select-beige">
                 Em caso de sinistro ou emergência, você pode acionar o seguro de três formas: pelo nosso aplicativo Select Seguros (mais rápido), pelo telefone 0800 disponível 24h ou pelo WhatsApp. Nossa central de atendimento está preparada para dar todo o suporte necessário e enviar assistência imediata.
               </p>
@@ -305,7 +305,7 @@
               <p class="font-medium">Quais são as vantagens de ter um seguro auto?</p>
               <i class="fas fa-plus text-select-green transition-transform duration-300"></i>
             </button>
-            <div class="faq-answer px-4 pb-4">
+            <div class="faq-answer px-4">
               <p class="text-select-beige">
                 Ter um seguro auto proporciona tranquilidade financeira e emocional. Você estará protegido contra prejuízos causados por acidentes, roubos, furtos e danos naturais. Além disso, conta com assistência 24h para qualquer emergência, garantindo que você nunca fique desamparado na estrada. Com o seguro Select, você ainda tem benefícios exclusivos como descontos progressivos e programa de fidelidade.
               </p>
@@ -317,7 +317,7 @@
               <p class="font-medium">O seguro cobre danos causados por eventos naturais?</p>
               <i class="fas fa-plus text-select-green transition-transform duration-300"></i>
             </button>
-            <div class="faq-answer px-4 pb-4">
+            <div class="faq-answer px-4">
               <p class="text-select-beige">
                 Sim, nosso seguro auto cobre danos causados por eventos naturais como enchentes, granizo, queda de árvores, deslizamentos e outros fenômenos da natureza. Esta é uma cobertura essencial, especialmente considerando as mudanças climáticas e eventos extremos cada vez mais frequentes.
               </p>
@@ -329,7 +329,7 @@
               <p class="font-medium">Posso transferir meu seguro para um novo veículo?</p>
               <i class="fas fa-plus text-select-green transition-transform duration-300"></i>
             </button>
-            <div class="faq-answer px-4 pb-4">
+            <div class="faq-answer px-4">
               <p class="text-select-beige">
                 Sim, é possível transferir seu seguro para um novo veículo. Basta entrar em contato com nosso atendimento ou acessar o app Select Seguros para solicitar a transferência. Dependendo das características do novo veículo, pode haver ajustes no valor do prêmio, mas todo o processo é simples e rápido.
               </p>
