@@ -100,7 +100,7 @@
                 </div>
                 <div>
                   <p class="text-xs text-white">Seguro autorizado</p>
-                  <p class="text-xs text-select-beige">SELECT em todo Brasil</p>
+                  <p class="text-xs text-select-beige">SUSEP</p>
                 </div>
               </div>
               
