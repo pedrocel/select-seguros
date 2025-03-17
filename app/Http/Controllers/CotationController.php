@@ -250,7 +250,7 @@ public function getFipeValue(Request $request)
         }
         if( $request->selectedCoverages['replacement_car']){
         $quotation->id_replacement_car_coverages = $request->selectedCoverages['replacement_car'] ? $request->selectedCoverages['replacement_car']['id'] : "";
-        }
+        } 
         
         $quotation->save(); // Salva as mudanças no banco de dados
 
