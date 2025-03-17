@@ -12,10 +12,9 @@ class LeadInput extends Model
     // Definir os campos que podem ser preenchidos via mass-assignment
     protected $fillable = [
         'nome',
-        'sobrenome',
         'email',
         'cpf',
-        'telefone',
+        'whatsapp',
         'marca_veiculo',
         'modelo_veiculo',
         'ano_veiculo',
@@ -27,7 +26,11 @@ class LeadInput extends Model
         'bairro',
         'cidade',
         'complemento',
-        'id_user',
+        'user_id',
+        'status',
+        'ip',
+        'user_agent',
+        'referal',
     ];
 
     // Caso precise de timestamps personalizados, descomente a linha abaixo

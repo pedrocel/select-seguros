@@ -37,6 +37,14 @@ Route::get('/', function () {
 Route::get('/cotacao', function () {
     return view('cotacao');
 }); 
+
+Route::get('/checkout', function () {
+    return view('checkout');
+}); 
+
+Route::get('/cotacao2', function () {
+    return view('cotacao2');
+}); 
 Route::get('/obrigado', function () {
     return view('obrigado');
 }); 
