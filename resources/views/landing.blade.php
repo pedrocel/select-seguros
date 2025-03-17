@@ -56,7 +56,7 @@
           </div>
           
           <div class="flex items-center space-x-4">
-            <a href="cotacao" class="bg-select-green text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors">
+            <a href="cotacao2" class="bg-select-green text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors">
               Fazer Cotação<i class="fas fa-arrow-right ml-1"></i>
             </a>
             <a href="/login" class="bg-transparent border border-select-blue text-select-blue px-4 py-2 rounded-full text-sm font-medium hover:bg-select-blue hover:bg-opacity-10 transition-colors">
