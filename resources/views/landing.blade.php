@@ -22,6 +22,25 @@
       .faq-item.active .fa-plus {
         transform: rotate(45deg);
       }
+      .transition-height {
+          transition: all 0.3s ease-in-out;
+      }
+      .checkmark {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background-color: rgb(204, 255, 0);
+          position: relative;
+      }
+      .checkmark::after {
+          content: '✓';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #000;
+          font-weight: bold;
+      }
     </style>
     <script>
       tailwind.config = {
@@ -50,13 +69,13 @@
           </div>
           
           <div class="hidden md:flex items-center space-x-8">
-            <a href="#" class="text-sm text-select-beige hover:text-white">Sobre</a>
-            <a href="#" class="text-sm text-select-beige hover:text-white">Coberturas</a>
+            <a href="#sobre" class="text-sm text-select-beige hover:text-white">Sobre</a>
+            <a href="#coberturas" class="text-sm text-select-beige hover:text-white">Coberturas</a>
             <a href="#" class="text-sm text-select-beige hover:text-white">Contato</a>
           </div>
           
           <div class="flex items-center space-x-4">
-            <a href="cotacao2" class="bg-select-green text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors">
+            <a href="cotacao" class="bg-select-green text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors">
               Fazer Cotação<i class="fas fa-arrow-right ml-1"></i>
             </a>
             <a href="/login" class="bg-transparent border border-select-blue text-select-blue px-4 py-2 rounded-full text-sm font-medium hover:bg-select-blue hover:bg-opacity-10 transition-colors">
@@ -81,7 +100,7 @@
             </p>
             
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <a href="#" class="bg-select-green text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors flex items-center justify-center">
+              <a href="cotacao" class="bg-select-green text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors flex items-center justify-center">
                 Fazer cotação agora <i class="fas fa-arrow-right ml-2"></i>
               </a>
               <a href="#" class="text-white px-6 py-3 text-sm font-medium hover:text-select-green transition-colors flex items-center justify-center">
@@ -115,7 +134,7 @@
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="py-16 bg-select-black">
+    <section id="sobre" class="py-16 bg-select-black">
       <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl font-bold mb-2">Por que escolher a <span class="text-select-green">Select</span>?</h2>
         <p class="text-select-beige mb-12 max-w-2xl mx-auto">
@@ -157,80 +176,324 @@
     </section>
 
     <!-- Auto Insurance Benefits Section -->
-    <section class="py-16 bg-gray-900">
+    <section id="coberturas" class="py-16 bg-gray-900">
       <div class="container mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-8 text-center">Vantagens do Seguro Auto <span class="text-select-green">Select</span></h2>
+        <h2 class="text-3xl font-bold mb-8 text-center">Coberturas<br>
+         <span class="text-select-green">Seguros garantidos pela SUSEP</span></h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="bg-select-black p-6 rounded-lg flex items-start">
-            <div class="w-10 h-10 bg-select-blue rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-              <i class="fas fa-car-crash text-white"></i>
+        <div class="max-w-3xl mx-auto space-y-4">
+          <div class="flex flex-col gap-6">
+            <div class="border-b border-b-[#E9EBFF]">
+                                  
+              <button onclick="toggleContent('furto')" class="w-full flex items-center py-3 cursor-pointer">
+                                          
+                  <div class="w-[54px]">
+                                                
+                    <div class="checkmark"></div>
+                                            
+                  </div>
+                                          
+                  <h4 class="flex-grow text-left font-semibold">Furto e Roubo</h4>
+                                          
+                  <div class="w-[24px]">
+                                                
+                    <svg id="arrow-furto" class="transform transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        
+                        <path d="M6 9l6 6 6-6"/>
+                                                    
+                    </svg>
+                                            
+                  </div>
+                                      
+              </button>
+                                  
+              <div id="furto" class="h-0 opacity-0 overflow-hidden transition-height">
+                                          
+                  <h4 class="text-sm">Cobrimos até 100% do valor do seu carro na tabela FIPE em casos de:*</h4>
+                                          
+                  <p class="text-sm">• Roubo</p>
+                                          
+                  <p class="text-sm">• Furto</p>
+                                          
+                  <p class="text-sm pt-4 text-right">Regulados pela SUSEP</p>
+                                      
+              </div>
+                              
             </div>
-            <div>
-              <h3 class="text-xl font-bold mb-2">Cobertura contra Colisão</h3>
-              <p class="text-select-beige">
-                Proteção completa em caso de colisão, independente de quem foi o culpado. Seu veículo estará sempre protegido.
-              </p>
+                            <!-- Assistência 24h -->
+                            
+            <div class="border-b border-b-[#E9EBFF]">
+                                  
+              <button onclick="toggleContent('assistencia')" class="w-full flex items-center py-3 cursor-pointer">
+                                          
+                  <div class="w-[54px]">
+                                                
+                    <div class="checkmark"></div>
+                                            
+                  </div>
+                                          
+                  <h4 class="flex-grow text-left font-semibold">Assistência 24h</h4>
+                                          
+                  <div class="w-[24px]">
+                                                
+                    <svg id="arrow-assistencia" class="transform transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        
+                        <path d="M6 9l6 6 6-6"/>
+                                                    
+                    </svg>
+                                            
+                  </div>
+                                      
+              </button>
+                                  
+              <div id="assistencia" class="h-0 opacity-0 overflow-hidden transition-height">
+                                          
+                  <h4 class="text-sm">Assistência 24h completa via 0800 em todo o território nacional, contendo:</h4>
+                                          
+                  <p class="text-sm">• Reboque</p>
+                                          
+                  <p class="text-sm">• Hotel para até 5 pessoas</p>
+                                          
+                  <p class="text-sm">• Chaveiro</p>
+                                          
+                  <p class="text-sm">• Assistência para pane elétrica</p>
+                                          
+                  <p class="text-sm">• Assistência para pane mecânica</p>
+                                          
+                  <p class="text-sm">• Auxílio na falta de combustível</p>
+                                          
+                  <p class="text-sm">• Táxi ou transporte alternativo</p>
+                                          
+                  <p class="text-sm">• Troca de pneus</p>
+                                          
+                  <p class="text-sm">• Recarga de bateria</p>
+                                      
+              </div>
+                              
             </div>
-          </div>
-          
-          <div class="bg-select-black p-6 rounded-lg flex items-start">
-            <div class="w-10 h-10 bg-select-blue rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-              <i class="fas fa-car-alt text-white"></i>
+                            <!-- Carro Reserva -->
+                            
+            <div class="border-b border-b-[#E9EBFF]">
+                                  
+              <button onclick="toggleContent('carro-reserva')" class="w-full flex items-center py-3 cursor-pointer">
+                                          
+                  <div class="w-[54px]">
+                                                
+                    <div class="checkmark"></div>
+                                            
+                  </div>
+                                          
+                  <h4 class="flex-grow text-left font-semibold">Carro Reserva</h4>
+                                          
+                  <div class="w-[24px]">
+                                                
+                    <svg id="arrow-carro-reserva" class="transform transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        
+                        <path d="M6 9l6 6 6-6"/>
+                                                    
+                    </svg>
+                                            
+                  </div>
+                                      
+              </button>
+                                  
+              <div id="carro-reserva" class="h-0 opacity-0 overflow-hidden transition-height">
+                                          
+                  <h4 class="text-sm">Carro reserva:</h4>
+                                          
+                  <p class="text-sm">• Carro reserva por 7 dias em caso de colisão, incêndio, roubo ou furto.</p>
+                                      
+              </div>
+                              
             </div>
-            <div>
-              <h3 class="text-xl font-bold mb-2">Carro Reserva</h3>
-              <p class="text-select-beige">
-                Não fique parado! Tenha um carro reserva enquanto o seu está em reparo, garantindo sua mobilidade.
-              </p>
+                            <!-- Colisão -->
+                            
+            <div class="border-b border-b-[#E9EBFF]">
+                                  
+              <button onclick="toggleContent('colisao')" class="w-full flex items-center py-3 cursor-pointer">
+                                          
+                  <div class="w-[54px]">
+                                                
+                    <div class="checkmark"></div>
+                                            
+                  </div>
+                                          
+                  <h4 class="flex-grow text-left font-semibold">Colisão</h4>
+                                          
+                  <div class="w-[24px]">
+                                                
+                    <svg id="arrow-colisao" class="transform transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        
+                        <path d="M6 9l6 6 6-6"/>
+                                                    
+                    </svg>
+                                            
+                  </div>
+                                      
+              </button>
+                                  
+              <div id="colisao" class="h-0 opacity-0 overflow-hidden transition-height">
+                                          
+                  <h4 class="text-sm">Colisão:*</h4>
+                                          
+                  <p class="text-sm">• Pagamento integral ou parcial em caso de colisão</p>
+                                          
+                  <h4 class="text-sm mt-2">Fenômenos da natureza:*</h4>
+                                          
+                  <p class="text-sm">• Alagamento</p>
+                                          
+                  <p class="text-sm">• Granizo</p>
+                                          
+                  <p class="text-sm">• Queda de árvore e suas consequências</p>
+                                          
+                                          
+                  <p class="text-sm pt-2 pl-2">Franquia reduzida:</p>
+                                          
+                  <p class="text-sm pl-2">i) VEÍCULOS DE PASSEIO: 5% (cinco por cento) do valor correspondente à Tabela Fipe do veículo à data do ocorrido, não podendo este ser inferior a R$2.500,00 (dois mil e quinhentos reais);</p>
+                                          
+                  <p class="text-sm pl-2">ii) VEÍCULOS DIFERENCIADOS: 8% (oito por cento) do valor correspondente à Tabela Fipe do veículo à data do ocorrido, não podendo este ser inferior a R$3.500,00 (três mil e quinhentos reais);</p>
+                                          
+                  <p class="text-sm pl-2">iii) VEÍCULOS IMPORTADOS: 10% (dez por cento) do valor correspondente à Tabela Fipe do veículo à data do ocorrido, não podendo este ser inferior a R$5.000,00 (cinco mil reais);</p>
+                                          
+                                          
+                  <p class="text-sm pt-4 text-right">* Regulados pela SUSEP</p>
+                                      
+              </div>
+                              
             </div>
-          </div>
-          
-          <div class="bg-select-black p-6 rounded-lg flex items-start">
-            <div class="w-10 h-10 bg-select-blue rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-              <i class="fas fa-tools text-white"></i>
+                            <!-- Terceiros -->
+                            
+            <div class="border-b border-b-[#E9EBFF]">
+                                  
+              <button onclick="toggleContent('terceiros')" class="w-full flex items-center py-3 cursor-pointer">
+                                          
+                  <div class="w-[54px]">
+                                                
+                    <div class="checkmark"></div>
+                                            
+                  </div>
+                                          
+                  <h4 class="flex-grow text-left font-semibold">Terceiros</h4>
+                                          
+                  <div class="w-[24px]">
+                                                
+                    <svg id="arrow-terceiros" class="transform transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        
+                        <path d="M6 9l6 6 6-6"/>
+                                                    
+                    </svg>
+                                            
+                  </div>
+                                      
+              </button>
+                                  
+              <div id="terceiros" class="h-0 opacity-0 overflow-hidden transition-height">
+                                          
+                  <h4 class="text-sm">Danos a terceiros:*</h4>
+                                          
+                  <p class="text-sm">• Danos materiais</p>
+                                          
+                  <p class="text-sm">• Danos corporais</p>
+                                          
+                  <p class="text-sm">• Reparo ou indenização em até R$100.000,00</p>
+                                          
+                  <p class="text-sm pt-4 text-right">* Regulados pela SUSEP</p>
+                                      
+              </div>
+                              
             </div>
-            <div>
-              <h3 class="text-xl font-bold mb-2">Assistência 24h</h3>
-              <p class="text-select-beige">
-                Guincho, troca de pneus, chaveiro e muito mais. Assistência completa onde e quando você precisar.
-              </p>
+                            <!-- APP -->
+                            
+            <div class="border-b border-b-[#E9EBFF]">
+                                  
+              <button onclick="toggleContent('app')" class="w-full flex items-center py-3 cursor-pointer">
+                                          
+                  <div class="w-[54px]">
+                                                
+                    <div class="checkmark"></div>
+                                            
+                  </div>
+                                          
+                  <h4 class="flex-grow text-left font-semibold">APP</h4>
+                                          
+                  <div class="w-[24px]">
+                                                
+                    <svg id="arrow-app" class="transform transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        
+                        <path d="M6 9l6 6 6-6"/>
+                                                    
+                    </svg>
+                                            
+                  </div>
+                                      
+              </button>
+                                  
+              <div id="app" class="h-0 opacity-0 overflow-hidden transition-height">
+                                          
+                  <h4 class="text-sm">Seguros Acidentes Pessoais a Passageiros (APP):*</h4>
+                                          
+                  <p class="text-sm">• Indenização de R$10.000,00 em caso se morte ou invalidez</p>
+                                          
+                  <p class="text-sm">• Reembolso de despesas hospitalares até R$3.000,00</p>
+                                          
+                  <p class="text-sm pt-4 text-right">* Regulados pela SUSEP</p>
+                                      
+              </div>
+                              
             </div>
-          </div>
-          
-          <div class="bg-select-black p-6 rounded-lg flex items-start">
-            <div class="w-10 h-10 bg-select-blue rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-              <i class="fas fa-hand-holding-usd text-white"></i>
+                            <!-- Vidros Completo -->
+                            
+            <div class="border-b border-b-[#E9EBFF]">
+                                  
+              <button onclick="toggleContent('vidros')" class="w-full flex items-center py-3 cursor-pointer">
+                                          
+                  <div class="w-[54px]">
+                                                
+                    <div class="checkmark"></div>
+                                            
+                  </div>
+                                          
+                  <h4 class="flex-grow text-left font-semibold">Vidros Completo</h4>
+                                          
+                  <div class="w-[24px]">
+                                                
+                    <svg id="arrow-vidros" class="transform transition-transform" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        
+                        <path d="M6 9l6 6 6-6"/>
+                                                    
+                    </svg>
+                                            
+                  </div>
+                                      
+              </button>
+                                  
+              <div id="vidros" class="h-0 opacity-0 overflow-hidden transition-height">
+                                          
+                  <h4 class="text-sm">Troca ou reparo de:</h4>
+                                          
+                  <p class="text-sm">• Vidros laterais</p>
+                                          
+                  <p class="text-sm">• Vidro traseiro</p>
+                                          
+                  <p class="text-sm">• Para-brisa</p>
+                                          
+                  <p class="text-sm">• Retrovisores</p>
+                                          
+                  <p class="text-sm">• Lanternas</p>
+                                          
+                  <p class="text-sm">• Faróis</p>
+                                      
+              </div>
+                              
             </div>
-            <div>
-              <h3 class="text-xl font-bold mb-2">Indenização Garantida</h3>
-              <p class="text-select-beige">
-                Em caso de perda total ou roubo, receba o valor integral do seu veículo conforme a tabela FIPE.
-              </p>
-            </div>
-          </div>
-          
-          <div class="bg-select-black p-6 rounded-lg flex items-start">
-            <div class="w-10 h-10 bg-select-blue rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-              <i class="fas fa-mobile-alt text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold mb-2">App Exclusivo</h3>
-              <p class="text-select-beige">
-                Gerencie seu seguro, acione serviços e acompanhe sinistros diretamente pelo aplicativo Select Seguros.
-              </p>
-            </div>
-          </div>
-          
-          <div class="bg-select-black p-6 rounded-lg flex items-start">
-            <div class="w-10 h-10 bg-select-blue rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-              <i class="fas fa-percent text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold mb-2">Descontos Progressivos</h3>
-              <p class="text-select-beige">
-                Quanto mais tempo sem sinistros, maiores os descontos na renovação. Dirija com segurança e economize.
-              </p>
+                            <!-- Botão Saiba Mais -->
+                            
+            <div class="text-center mt-8">
+                                  
+            <a href="#cotacao" class="bg-select-green text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-opacity-90 transition-colors flex items-center justify-center">
+              Fazer cotação agora<i class="fas fa-arrow-right ml-2"></i>
+            </a>
+                              
             </div>
           </div>
         </div>
@@ -483,6 +746,18 @@
           });
         });
       });
+
+      function toggleContent(id) {
+                     const content = document.getElementById(id);
+                     content.classList.toggle('h-0');
+                     content.classList.toggle('h-auto');
+                     content.classList.toggle('py-5');
+                     content.classList.toggle('opacity-0');
+                     content.classList.toggle('opacity-100');
+         
+                     const arrow = document.getElementById(`arrow-${id}`);
+                     arrow.classList.toggle('rotate-180');
+                 }
     </script>
   </body>
 </html>

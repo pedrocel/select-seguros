@@ -35,7 +35,7 @@ Route::get('/', function () {
 });
 
 Route::get('/cotacao', function () {
-    return view('cotacao');
+    return view('cotacao2');
 }); 
 
 Route::get('/checkout', function () {
@@ -43,7 +43,7 @@ Route::get('/checkout', function () {
 }); 
 
 Route::get('/cotacao2', function () {
-    return view('cotacao2');
+    return view('cotacao');
 }); 
 Route::get('/obrigado', function () {
     return view('obrigado');

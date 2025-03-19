@@ -243,17 +243,6 @@ public function getFipeValue(Request $request)
 
         $quotation = Quotation::findOrFail($request->quotationId);
 
-        $quotation->status = 2;
-        $quotation->id_basic_coverage = $request->selectedCoverages['basic'] ? $request->selectedCoverages['basic']['id'] : "";
-        if( $request->selectedCoverages['support']){
-            $quotation->id_support_coverage = $request->selectedCoverages['support'] ? $request->selectedCoverages['support']['id'] : "";
-        }
-        if( $request->selectedCoverages['replacement_car']){
-        $quotation->id_replacement_car_coverages = $request->selectedCoverages['replacement_car'] ? $request->selectedCoverages['replacement_car']['id'] : "";
-        } 
-        
-        $quotation->save(); // Salva as mudanças no banco de dados
-
         return response()->json([
             'quotation' => $quotation,
             'redirect_url' =>  route('checkout', ['id' => $quotation->id]) // Redireciona para a rota 'coverage'

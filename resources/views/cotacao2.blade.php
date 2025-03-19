@@ -477,11 +477,14 @@
 
             const result = await response.json();
             hideLoading();
+            
             console.log('Cotação realizada com sucesso:', result);
 
             // Redireciona para a URL fornecida pela resposta
             if (result.redirect_url) {
-                window.location.href = result.redirect_url;  // Redirecionamento
+                setTimeout(() => {
+                    window.location.href = result.redirect_url;
+                }, 2000); // Atraso de 2 segundos (2000 ms)
             } else {
                 console.error('URL de redirecionamento não fornecida');
             }
