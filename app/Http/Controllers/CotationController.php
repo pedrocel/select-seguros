@@ -258,4 +258,15 @@ public function getFipeValue(Request $request)
         ]);
     }
 
+    public function finishPayment(Request $request){
+        
+        return response()->json([
+            'redirect_url' =>  route('get.finish') // Redireciona para a rota 'coverage'
+        ], 200);
+    }
+
+    public function getFinishPayment(){
+        return view('obrigado');
+    }
+
 }

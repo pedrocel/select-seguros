@@ -19,5 +19,7 @@ Route::get('/lista-modelos', [CotationController::class, 'getModels']);
 Route::get('/versoes', [CotationController::class, 'getVersions']);
 Route::get('/coverage/{id}', [CotationController::class, 'getCoveragePage'])->name('coverage');
 Route::post('/realizar-cotacao', [CotationController::class, 'getFipeValue']);
-Route::post('/contratar', [CotationController::class, 'getContractPage'])->name('contract');
+Route::post('/contratar', [CotationController::class, 'getContractPages'])->name('contract');
 Route::get('/checkout/{id}', [CotationController::class, 'getCheckout'])->name('checkout');
+Route::post('/finish-payment', [CotationController::class, 'finishPayment'])->name('finish');
+Route::get('/finish-payment', [CotationController::class, 'getFinishPayment'])->name('get.finish');
