@@ -307,267 +307,270 @@
                     
          </main>
              
-      </div>
-          <script>
-                 document.addEventListener('DOMContentLoaded', function() {
-                     // Initialize Lucide icons
-                     lucide.createIcons();
-         
-                     const quotation = {!! json_encode($quotation) !!};
-         
-                     // Initialize selected coverages tracking
-                     const selectedCoverages = {
-                         basic: null,
-                         support: null, // Changed from Set to single value
-                         replacement_car: null, // Changed from Set to single value
-                         glass: new Set(),
-                         optional: new Set()
-                     };
-         
-                     function createCoverageOption(coverage, type) {
-                         const div = document.createElement('div');
-                         div.className = 'coverage-option p-3 sm:p-4 rounded-lg bg-[#2A2F35] cursor-pointer';
-                         div.dataset.id = coverage.id;
-                         div.dataset.type = type;
-         
-                         const content = `
-                             <div class="flex justify-between items-center">
-                                 <div class="flex items-center gap-2">
-                                     <span class="text-white text-sm sm:text-base">${coverage.name}</span>
-                                     ${coverage.lmi ? `
-                                         <i data-lucide="info" class="w-4 h-4 text-gray-400"></i>
-                                     ` : ''}
-                                 </div>
-                                 <span class="text-white font-medium">
-                                     ${type === 'basic' ? 
-                                         `${coverage.percent}%` : 
-                                         coverage.value ? `${formatCurrency(coverage.value)}/mês` : ''}
-                                 </span>
-                             </div>
-                             ${coverage.lmi ? `<p class="text-gray-400 text-sm mt-2">Limite: ${formatCurrency(coverage.lmi)}</p>` : ''}
-                         `;
-         
-                         div.innerHTML = content;
-                         lucide.createIcons({
-                             icons: {
-                                 info: true
-                             }
-                         });
-         
-                         div.addEventListener('click', () => {
-                             if (type === 'basic') {
-                                 document.querySelectorAll(`[data-type="basic"]`).forEach(el => el.classList.remove('selected'));
-                                 selectedCoverages.basic = coverage;
-                                 div.classList.add('selected');
-                             } else if (type === 'support' || type === 'replacement_car') {
-                                 // Handle single selection for support and replacement_car
-                                 const currentSelection = selectedCoverages[type];
-                                 document.querySelectorAll(`[data-type="${type}"]`).forEach(el => el.classList.remove('selected'));
-                                 
-                                 if (currentSelection && currentSelection.id === coverage.id) {
-                                     // If clicking the same option, deselect it
-                                     selectedCoverages[type] = null;
-                                 } else {
-                                     // Select new option
-                                     selectedCoverages[type] = coverage;
-                                     div.classList.add('selected');
-                                 }
-                             } else {
-                                 // Multiple selection for other types
-                                 div.classList.toggle('selected');
-                                 if (div.classList.contains('selected')) {
-                                     selectedCoverages[type].add(coverage);
-                                 } else {
-                                     selectedCoverages[type].delete(coverage);
-                                 }
-                             }
-                             updateSummary();
-                             updateWizardNav();
-                         });
-         
-                         return div;
-                     }
-         
-                     function updateSummary() {
-                         const selectedList = document.getElementById('selectedCoveragesList');
-                         selectedList.innerHTML = '';
-                         let total = 0;
-         
-                         // Add basic coverage if selected (but don't add to total)
-                         if (selectedCoverages.basic) {
-                             const basic = selectedCoverages.basic;
-                             selectedList.appendChild(createSummaryItem(basic.name, `${basic.percent}%`));
-                         }
-         
-                         // Add single selection coverages
-                         if (selectedCoverages.support) {
-                             selectedList.appendChild(createSummaryItem(selectedCoverages.support.name, selectedCoverages.support.value));
-                             total += selectedCoverages.support.value;
-                         }
-         
-                         if (selectedCoverages.replacement_car) {
-                             selectedList.appendChild(createSummaryItem(selectedCoverages.replacement_car.name, selectedCoverages.replacement_car.value));
-                             total += selectedCoverages.replacement_car.value;
-                         }
-         
-                         // Add multiple selection coverages
-                         ['glass', 'optional'].forEach(type => {
-                             if (selectedCoverages[type].size > 0) {
-                                 selectedCoverages[type].forEach(coverage => {
-                                     if (coverage.value) {
-                                         selectedList.appendChild(createSummaryItem(coverage.name, coverage.value));
-                                         total += coverage.value;
-                                     }
-                                 });
-                             }
-                         });
-         
-                         // Update total values
-                         document.getElementById('insuranceValue').textContent = formatCurrency(total);
-                         document.getElementById('totalValue').textContent = formatCurrency(total);
-                     }
-         
-                     function createSummaryItem(name, value) {
-                         const div = document.createElement('div');
-                         div.className = 'flex justify-between text-gray-400';
-                         div.innerHTML = `
-                             <span>${name}</span>
-                             <span>${typeof value === 'number' ? formatCurrency(value) : value}</span>
-                         `;
-                         return div;
-                     }
-         
-                     function formatCurrency(value) {
-                         return new Intl.NumberFormat('pt-BR', {
-                             style: 'currency',
-                             currency: 'BRL'
-                         }).format(value);
-                     }
-         
-                     let currentStep = 1;
-                     const totalSteps = 5;
-         
-                     function updateWizardNav() {
-                         document.querySelectorAll('.wizard-nav-item').forEach(item => {
-                             const step = parseInt(item.dataset.step);
-                             item.classList.remove('active', 'completed');
-                             
-                             if (step === currentStep) {
-                                 item.classList.add('active');
-                             } else if (step < currentStep) {
-                                 item.classList.add('completed');
-                             }
-                         });
-         
-                         document.querySelectorAll('.wizard-step').forEach(step => {
-                             step.classList.remove('active');
-                             if (parseInt(step.dataset.step) === currentStep) {
-                                 step.classList.add('active');
-                             }
-                         });
-         
-                         // Update navigation buttons
-                         document.getElementById('prevStep').style.display = currentStep === 1 ? 'none' : 'block';
-                         document.getElementById('nextStep').textContent = currentStep === totalSteps ? 'Veja o resumo' : 'Próximo';
-                     }
-         
-                     // Navigation event listeners
-                     document.getElementById('prevStep').addEventListener('click', () => {
-                         if (currentStep > 1) {
-                             currentStep--;
-                             updateWizardNav();
-                         }
-                     });
-         
-                     document.getElementById('nextStep').addEventListener('click', () => {
-                         if (currentStep < totalSteps) {
-                             currentStep++;
-                             updateWizardNav();
-                         }
-                     });
-         
-                     // Wizard navigation click handlers
-                     document.querySelectorAll('.wizard-nav-item').forEach(item => {
-                         item.addEventListener('click', () => {
-                             const step = parseInt(item.dataset.step);
-                             if (step <= currentStep) {
-                                 currentStep = step;
-                                 updateWizardNav();
-                             }
-                         });
-                     });
-         
-                     // Initialize vehicle information
-                     document.getElementById('vehicleName').textContent = `${quotation.brand} ${quotation.model}`;
-                     document.getElementById('vehicleDetails').textContent = `${quotation.year} - ${quotation.fuel}`;
-                     document.getElementById('fipeValue').textContent = formatCurrency(quotation.value);
-                     document.getElementById('franchise').textContent = formatCurrency(quotation.value * 0.1);
-                     document.getElementById('limit').textContent = formatCurrency(quotation.value);
-         
-                     // Populate coverage sections
-                     const coverageTypes = {
-                         basic: document.getElementById('basicCoverages'),
-                         support: document.getElementById('supportCoverages'),
-                         replacement_car: document.getElementById('replacementCoverages'),
-                         glass: document.getElementById('glassCoverages'),
-                         optional: document.getElementById('optionalCoverages')
-                     };
-         
-                     // Populate each coverage section
-                     Object.entries(coverageTypes).forEach(([type, container]) => {
-                         if (quotation.coverage[type] && container) {
-                             quotation.coverage[type].forEach(coverage => {
-                                 if (coverage.enabled && (!coverage.show || coverage.show === true)) {
-                                     container.appendChild(createCoverageOption(coverage, type));
-                                 }
-                             });
-                         }
-                     });
-         
-                     // Initialize wizard navigation
-                     updateWizardNav();
-                     
-                     function sendToApi() {
-            // Collecting data from selectedCoverages and other necessary info
-            const requestData = {
-                quotationId: quotation.id,
-                selectedCoverages: {
-                    basic: selectedCoverages.basic,
-                    support: selectedCoverages.support,
-                    replacement_car: selectedCoverages.replacement_car,
-                    glass: Array.from(selectedCoverages.glass),
-                    optional: Array.from(selectedCoverages.optional)
-                },
-                totalAmount: document.getElementById('totalValue').textContent
-            };
+        </div>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Lucide icons
+                lucide.createIcons();
+    
+                const quotation = {!! json_encode($quotation) !!};
+    
+                // Initialize selected coverages tracking
+                const selectedCoverages = {
+                    basic: null,
+                    support: null, // Changed from Set to single value
+                    replacement_car: null, // Changed from Set to single value
+                    glass: new Set(),
+                    optional: new Set()
+                };
+    
+                function createCoverageOption(coverage, type) {
+                    const div = document.createElement('div');
+                    div.className = 'coverage-option p-3 sm:p-4 rounded-lg bg-[#2A2F35] cursor-pointer';
+                    div.dataset.id = coverage.id;
+                    div.dataset.type = type;
+    
+                    const content = `
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <span class="text-white text-sm sm:text-base">${coverage.name}</span>
+                                ${coverage.lmi ? `
+                                    <i data-lucide="info" class="w-4 h-4 text-gray-400"></i>
+                                ` : ''}
+                            </div>
+                            <span class="text-white font-medium">
+                                ${type === 'basic' ? 
+                                    `${coverage.percent}%` : 
+                                    coverage.value ? `${formatCurrency(coverage.value)}/mês` : ''}
+                            </span>
+                        </div>
+                        ${coverage.lmi ? `<p class="text-gray-400 text-sm mt-2">Limite: ${formatCurrency(coverage.lmi)}</p>` : ''}
+                    `;
+    
+                    div.innerHTML = content;
+                    lucide.createIcons({
+                        icons: {
+                            info: true
+                        }
+                    });
+    
+                    div.addEventListener('click', () => {
+                        if (type === 'basic') {
+                            document.querySelectorAll(`[data-type="basic"]`).forEach(el => el.classList.remove('selected'));
+                            selectedCoverages.basic = coverage;
+                            div.classList.add('selected');
+                        } else if (type === 'support' || type === 'replacement_car') {
+                            // Handle single selection for support and replacement_car
+                            const currentSelection = selectedCoverages[type];
+                            document.querySelectorAll(`[data-type="${type}"]`).forEach(el => el.classList.remove('selected'));
+                            
+                            if (currentSelection && currentSelection.id === coverage.id) {
+                                // If clicking the same option, deselect it
+                                selectedCoverages[type] = null;
+                            } else {
+                                // Select new option
+                                selectedCoverages[type] = coverage;
+                                div.classList.add('selected');
+                            }
+                        } else {
+                            // Multiple selection for other types
+                            div.classList.toggle('selected');
+                            if (div.classList.contains('selected')) {
+                                selectedCoverages[type].add(coverage);
+                            } else {
+                                selectedCoverages[type].delete(coverage);
+                            }
+                        }
+                        updateSummary();
+                        updateWizardNav();
+                    });
+    
+                    return div;
+                }
+    
+                function updateSummary() {
+                    const selectedList = document.getElementById('selectedCoveragesList');
+                    selectedList.innerHTML = '';
+                    let total = 0;
+    
+                    // Add basic coverage if selected (but don't add to total)
+                    if (selectedCoverages.basic) {
+                        const basic = selectedCoverages.basic;
+                        selectedList.appendChild(createSummaryItem(basic.name, `${basic.percent}%`));
+                    }
+    
+                    // Add single selection coverages
+                    if (selectedCoverages.support) {
+                        selectedList.appendChild(createSummaryItem(selectedCoverages.support.name, selectedCoverages.support.value));
+                        total += selectedCoverages.support.value;
+                    }
+    
+                    if (selectedCoverages.replacement_car) {
+                        selectedList.appendChild(createSummaryItem(selectedCoverages.replacement_car.name, selectedCoverages.replacement_car.value));
+                        total += selectedCoverages.replacement_car.value;
+                    }
+    
+                    // Add multiple selection coverages
+                    ['glass', 'optional'].forEach(type => {
+                        if (selectedCoverages[type].size > 0) {
+                            selectedCoverages[type].forEach(coverage => {
+                                if (coverage.value) {
+                                    selectedList.appendChild(createSummaryItem(coverage.name, coverage.value));
+                                    total += coverage.value;
+                                }
+                            });
+                        }
+                    });
+    
+                    // Update total values
+                    document.getElementById('insuranceValue').textContent = formatCurrency(total);
+                    document.getElementById('totalValue').textContent = formatCurrency(total);
+                }
+    
+                function createSummaryItem(name, value) {
+                    const div = document.createElement('div');
+                    div.className = 'flex justify-between text-gray-400';
+                    div.innerHTML = `
+                        <span>${name}</span>
+                        <span>${typeof value === 'number' ? formatCurrency(value) : value}</span>
+                    `;
+                    return div;
+                }
+    
+                function formatCurrency(value) {
+                    return new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    }).format(value);
+                }
+    
+                let currentStep = 1;
+                const totalSteps = 5;
+    
+                function updateWizardNav() {
+                    document.querySelectorAll('.wizard-nav-item').forEach(item => {
+                        const step = parseInt(item.dataset.step);
+                        item.classList.remove('active', 'completed');
+                        
+                        if (step === currentStep) {
+                            item.classList.add('active');
+                        } else if (step < currentStep) {
+                            item.classList.add('completed');
+                        }
+                    });
+    
+                    document.querySelectorAll('.wizard-step').forEach(step => {
+                        step.classList.remove('active');
+                        if (parseInt(step.dataset.step) === currentStep) {
+                            step.classList.add('active');
+                        }
+                    });
+    
+                    // Update navigation buttons
+                    document.getElementById('prevStep').style.display = currentStep === 1 ? 'none' : 'block';
+                    document.getElementById('nextStep').textContent = currentStep === totalSteps ? 'Veja o resumo' : 'Próximo';
+                }
+    
+                // Navigation event listeners
+                document.getElementById('prevStep').addEventListener('click', () => {
+                    if (currentStep > 1) {
+                        currentStep--;
+                        updateWizardNav();
+                    }
+                });
+    
+                document.getElementById('nextStep').addEventListener('click', () => {
+                    if (currentStep < totalSteps) {
+                        currentStep++;
+                        updateWizardNav();
+                    }
+                });
+    
+                // Wizard navigation click handlers
+                document.querySelectorAll('.wizard-nav-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const step = parseInt(item.dataset.step);
+                        if (step <= currentStep) {
+                            currentStep = step;
+                            updateWizardNav();
+                        }
+                    });
+                });
+    
+                // Initialize vehicle information
+                document.getElementById('vehicleName').textContent = `${quotation.brand} ${quotation.model}`;
+                document.getElementById('vehicleDetails').textContent = `${quotation.year} - ${quotation.fuel}`;
+                document.getElementById('fipeValue').textContent = formatCurrency(quotation.value);
+                document.getElementById('franchise').textContent = formatCurrency(quotation.value * 0.1);
+                document.getElementById('limit').textContent = formatCurrency(quotation.value);
+    
+                // Populate coverage sections
+                const coverageTypes = {
+                    basic: document.getElementById('basicCoverages'),
+                    support: document.getElementById('supportCoverages'),
+                    replacement_car: document.getElementById('replacementCoverages'),
+                    glass: document.getElementById('glassCoverages'),
+                    optional: document.getElementById('optionalCoverages')
+                };
+    
+                // Populate each coverage section
+                Object.entries(coverageTypes).forEach(([type, container]) => {
+                    if (quotation.coverage[type] && container) {
+                        quotation.coverage[type].forEach(coverage => {
+                            if (coverage.enabled && (!coverage.show || coverage.show === true)) {
+                                container.appendChild(createCoverageOption(coverage, type));
+                            }
+                        });
+                    }
+                });
+    
+                // Initialize wizard navigation
+                updateWizardNav();
+                
+                function sendToApi() {
+    // Collecting data from selectedCoverages and other necessary info
+    const requestData = {
+        quotationId: quotation.id,
+        selectedCoverages: {
+            basic: selectedCoverages.basic,
+            support: selectedCoverages.support,
+            replacement_car: selectedCoverages.replacement_car,
+            glass: Array.from(selectedCoverages.glass),
+            optional: Array.from(selectedCoverages.optional)
+        },
+        totalAmount: document.getElementById('totalValue').textContent
+    };
 
-            fetch('/api/contratar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(requestData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Sucesso:', data);
-                window.location.href = data.redirect_url;
-            })
-            .catch(error => {
-                console.error('Erro na requisição:', error);
-                alert('Erro na requisição, tente novamente.');
-            });
-        }
+    fetch('/api/contratar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.redirect_url) {
+        setTimeout(() => {
+            window.location.href = data.redirect_url;
+        }, 2000); // Atraso de 2 segundos (2000 ms)
+    } else {
+        console.error('URL de redirecionamento não fornecida');
+    }
 
-        // When user clicks the "Contratar agora" button
-        document.getElementById('contratarButton').addEventListener('click', function() {
-            sendToApi();
-        });
-                 });
+    })
+    .catch(error => {
+        console.error('Erro na requisição:', error);
+        alert('Erro na requisição, tente novamente.');
+    });
+}
 
-
-               
+    // When user clicks the "Contratar agora" button
+    document.getElementById('contratarButton').addEventListener('click', function() {
+        sendToApi();
+    });
+});
       </script>
    </body>
 </html>

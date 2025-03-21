@@ -66,6 +66,13 @@ Route::middleware(['auth', RedirectByProfile::class])->prefix('admin')->group(fu
     Route::get('/', function () {
         return view('welcome');
     });
+
+
+  
+
+
+
+
     // Listar Perfis
     Route::get('/perfis', [PerfilController::class, 'index'])->name('admin.perfis.index');
     Route::get('/perfis/create', [PerfilController::class, 'create'])->name('admin.perfis.create');
@@ -103,20 +110,14 @@ Route::middleware(['auth', RedirectByProfile::class])->prefix('admin')->group(fu
 
 Route::middleware(['auth', RedirectByProfile::class])->prefix('aluno')->group(function () {
     Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
-
     Route::post('/perfil/update-facial-image', [StudentProfileController::class, 'updateImage'])->name('student.updateImage');
-
     Route::get('/perfil/detalhes', [StudentProfileController::class, 'index'])->name('student.profile.index');
-
     Route::get('/calendar', [CalendarController::class, 'index'])->name('student.calendar.index');
     Route::get('/cursos', [CourseController::class, 'index'])->name('student.courses.index');
     Route::get('/documentos', [StudentDocumentController::class, 'index'])->name('student.document.index');
-
     Route::get('/responsaveis', [ResponsibleController::class, 'index'])->name('student.responsible.index');
     Route::post('/responsavel/criar', [ResponsibleController::class, 'store'])->name('student.responsible.store');
     Route::put('/responsavel/{id}', [ResponsibleController::class, 'update'])->name('student.responsible.update');
-
-    
     Route::post('/documents/{id_type}/{user}', [StudentDocumentController::class, 'store'])->name('student.documents.store');
     Route::get('/documents/download/{id}', [StudentDocumentController::class, 'download'])->name('student.documents.download');
 });
@@ -137,6 +138,15 @@ Route::middleware(['auth', RedirectByProfile::class])->prefix('responsavel')->gr
 
 Route::middleware(['auth', RedirectByProfile::class])->prefix('diretor')->group(function () {
 
+    Route::get('/vendedores', [UserController::class, 'index'])->name('director.vendedores');
+    Route::get('/clientes', [UserController::class, 'index'])->name('director.clientes');
+    Route::get('/afiliados', [UserController::class, 'index'])->name('director.afiliados');
+    Route::get('/leads', [UserController::class, 'index'])->name('director.leads');
+    Route::get('/apolices', [UserController::class, 'index'])->name('director.apolices');
+    Route::get('/usuarios', [UserController::class, 'index'])->name('director.usuarios');
+    Route::get('/relatorios', [UserController::class, 'index'])->name('director.relatorios');
+    Route::get('/integracoes', [UserController::class, 'index'])->name('director.integracoes');
+    Route::get('/minha-conta', [UserController::class, 'index'])->name('director.minha-conta');
 
 
     Route::get('users/{user}', [UserController::class, 'show'])->name('diretor.users.show');
@@ -185,6 +195,20 @@ Route::middleware(['auth', RedirectByProfile::class])->prefix('diretor')->group(
 
     
 });
+
+
+Route::middleware(['auth', RedirectByProfile::class])->prefix('vendedor')->group(function () {
+
+});
+
+Route::middleware(['auth', RedirectByProfile::class])->prefix('afiliado')->group(function () {
+
+});
+
+Route::middleware(['auth', RedirectByProfile::class])->prefix('cliente')->group(function () {
+
+});
+
 
 Route::get('/controllers', [ControllerController::class, 'index'])->name('controllers.index');
 Route::get('/controllers/create', [ControllerController::class, 'create'])->name('controllers.create');

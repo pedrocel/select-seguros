@@ -19,21 +19,16 @@ class UserSeeder extends Seeder
     {
         // Criação do usuário
         $user = User::create([
-            'name' => 'pedro',
-            'email' => 'pedronovaisengcp@gmail.com',
-            'password' => Hash::make('123456789'), // Substitua por uma senha segura
+            'name' => 'Pedro vinicius de souza novais',
+            'email' => 'pedronovais@kernelcode.com.br',
+            'password' => Hash::make('123456789'),
         ]);
 
-        // Criação dos perfis
-        $perfilAdmin = PerfilModel::create(['name' => 'Administrador']);
-        $perfilCliente = PerfilModel::create(['name' => 'Cliente']);
-
-        // Associação do usuário com o perfil "Administrador"
         UserPerfilModel::create([
             'user_id' => $user->id,
-            'perfil_id' => $perfilAdmin->id,
-            'is_atual' => 1, // Define como perfil atual
-            'status' => 1,   // Ativo
+            'perfil_id' => 1,
+            'is_atual' => 1,
+            'status' => 1,
         ]);
     }
 }

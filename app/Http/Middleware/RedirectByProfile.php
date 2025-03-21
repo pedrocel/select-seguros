@@ -32,27 +32,21 @@ class RedirectByProfile
                     }
                     break;
 
-                case 'Aluno':
-                    if (!$request->is('aluno/*')) { // Evita redirecionar para a própria rota
-                        return redirect('/aluno/dashboard');
+                case 'Vendedor':
+                    if (!$request->is('vendedor/*')) { // Evita redirecionar para a própria rota
+                        return redirect('/vendedor/dashboard');
                     }
                     break;
 
-                case 'Responsável':
-                    if (!$request->is('responsavel/*')) { // Evita redirecionar para a própria rota
-                        return redirect('/responsavel/dashboard');
+                case 'Afiliado':
+                    if (!$request->is('afiliado/*')) { // Evita redirecionar para a própria rota
+                        return redirect('/afiliado/dashboard');
                     }
                     break;
 
-                case 'Diretor':
-                    if (!$request->is('diretor/*')) { // Evita redirecionar para a própria rota
-                        return redirect('/diretor/dashboard');
-                    }
-                    break;
-
-                case 'Secretaria':
-                    if (!$request->is('secretaria/*')) { // Evita redirecionar para a própria rota
-                        return redirect('/secretaria/dashboard');
+                case 'Cliente':
+                    if (!$request->is('cliente/*')) { // Evita redirecionar para a própria rota
+                        return redirect('/cliente/dashboard');
                     }
                     break;
 

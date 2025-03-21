@@ -67,63 +67,63 @@
       <!-- Navigation -->
       <div class="flex-1 overflow-y-auto py-4">
         <nav class="px-2 space-y-1">
+          <a href="{{ route('director.dashboard') }}" class="sidebar-item active flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800">
+            <i class="fas fa-home w-5 h-5 mr-3"></i>
+            <span>Dashboard</span>
+          </a>
+
+          <a href="{{ route('director.dashboard') }}" class="menu-item flex items-center gap-2 p-2 rounded hover:bg-emerald-700 group transition-colors
+            {{ request()->routeIs('director.dashboard') ? 'text-gray-100 bg-emerald-700 shadow-lg' : 'text-white' }}">
+                <div class="p-1.5 bg-white/10 rounded group-hover:bg-white/20 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+                </div>
+                <span>Dashboard</span>
+            </a>
           
-            <a href="{{ route('director.dashboard') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.dashboard') ? 'active' : 'text-white' }}">
-                <i class="fas fa-chart-line w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">DASHBOARD</span>
+          <a href="{{ route('diretor.users.index') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800">
+            <i class="fas fa-users w-5 h-5 mr-3"></i>
+            <span>Clientes</span>
+          </a>
+          
+          <a href="#" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800">
+            <i class="fas fa-chart-line w-5 h-5 mr-3"></i>
+            <span>CRM</span>
+          </a>
+          
+          <a href="#" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800">
+            <i class="fas fa-file-contract w-5 h-5 mr-3"></i>
+            <span>Apólices</span>
+          </a>
+          
+          <a href="#" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800">
+            <i class="fas fa-car w-5 h-5 mr-3"></i>
+            <span>Veículos</span>
+          </a>
+          
+          <a href="#" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800">
+            <i class="fas fa-calendar w-5 h-5 mr-3"></i>
+            <span>Agenda</span>
+          </a>
+        </nav>
+        
+        <div class="mt-8 px-4">
+          <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            RELATÓRIOS
+          </h3>
+          <nav class="mt-2 space-y-1">
+            <a href="{{ route('director.vendas') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800">
+              <i class="fas fa-shopping-cart w-5 h-5 mr-3"></i>
+              <span>Vendas</span>
             </a>
-
-            <a href="{{ route('director.vendas') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.vendas') ? 'active' : 'text-white' }}">
-                <i class="fas fa-shopping-cart w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">VENDAS</span>
+            
+            <a href="#" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800">
+              <i class="fas fa-money-bill-wave w-5 h-5 mr-3"></i>
+              <span>Financeiro</span>
             </a>
-
-            <a href="{{ route('director.vendedores') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.vendedores') ? 'active' : 'text-white' }}">
-                <i class="fas fa-user-tie w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">VENDEDORES</span>
-            </a>
-
-            <a href="{{ route('director.afiliados') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.afiliados') ? 'active' : 'text-white' }}">
-                <i class="fas fa-handshake w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">AFILIADOS</span>
-            </a>
-
-            <a href="{{ route('director.clientes') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.clientes') ? 'active' : 'text-white' }}">
-                <i class="fas fa-users w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">CLIENTES</span>
-            </a>
-
-            <a href="{{ route('director.leads') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.leads') ? 'active' : 'text-white' }}">
-                <i class="fas fa-funnel-dollar w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">LEADS</span>
-            </a>
-
-            <a href="{{ route('director.apolices') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.apolices') ? 'active' : 'text-white' }}">
-                <i class="fas fa-file-contract w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">APÓLICES</span>
-            </a>
-
-            <a href="{{ route('director.usuarios') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.usuarios') ? 'active' : 'text-white' }}">
-                <i class="fas fa-user-friends w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">USUÁRIOS</span>
-            </a>
-
-            <a href="{{ route('director.relatorios') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.relatorios') ? 'active' : 'text-white' }}">
-                <i class="fas fa-chart-bar w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">RELATÓRIOS</span>
-            </a>
-
-            <a href="{{ route('director.integracoes') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.integracoes') ? 'active' : 'text-white' }}">
-                <i class="fas fa-plug w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">INTEGRAÇÕES</span>
-            </a>
-
-            <a href="{{ route('director.minha-conta') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-800 {{ request()->routeIs('director.minha-conta') ? 'active' : 'text-white' }}">
-                <i class="fas fa-user-circle w-5 h-5 mr-3"></i>
-                <span class="text-sm font-medium">MINHA CONTA</span>
-            </a>
+          </nav>
         </div>
-
+      </div>
+      
       <!-- User -->
       <div class="p-4 border-t border-gray-800">
         <div class="flex items-center">
@@ -143,13 +143,9 @@
       </button>
     </div>
 
-
-
         <main class="flex-1 flex flex-col overflow-hidden">
             @yield('content')
         </main>
-
-
 
         @if(session('status') === 'success')
             <div id="successNotification" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 flex items-center gap-3">

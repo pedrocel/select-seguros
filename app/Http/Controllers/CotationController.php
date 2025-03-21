@@ -239,7 +239,7 @@ public function getFipeValue(Request $request)
         ]);
     }
 
-    public function getContractPage(Request $request){
+    public function getContractPages(Request $request){
 
         $quotation = Quotation::findOrFail($request->quotationId);
 

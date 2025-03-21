@@ -67,17 +67,24 @@ class User extends Authenticatable
             ->where('is_atual', 1);
     }
 
-    public function student()
+    public function seller()
     {
         return $this->hasOne(UserPerfilModel::class, 'user_id', 'id')
-            ->where('status', 1)->where('perfil_id', 1)
+            ->where('status', 1)->where('perfil_id', 2)
             ->where('is_atual', 1);
     }
 
-    public function director()
+    public function partner()
     {
         return $this->hasOne(UserPerfilModel::class, 'user_id', 'id')
             ->where('status', 1)->where('perfil_id', 3)
+            ->where('is_atual', 1);
+    }
+
+    public function customer()
+    {
+        return $this->hasOne(UserPerfilModel::class, 'user_id', 'id')
+            ->where('status', 1)->where('perfil_id', 4)
             ->where('is_atual', 1);
     }
 
@@ -102,15 +109,6 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-    public function responsibles()
-    {
-        return $this->hasMany(StudentResponsible::class, 'id_student');
-    }
-    
-    public function students()
-    {
-        return $this->hasMany(StudentResponsible::class, 'id_responsible');
-    }
     /**
      * Get the identifier that will be stored in the JWT.
      *
