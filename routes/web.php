@@ -18,13 +18,16 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Middleware\RedirectByProfile;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\CustomLoginController;
+use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
 use App\Http\Controllers\Director\DashboardController as DirectorDashboardController;
 use App\Http\Controllers\Director\StudentsController as DirectorStudentsController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FaceEventController;
 use App\Http\Controllers\FacialImageController;
 use App\Http\Controllers\LeadInputController;
+use App\Http\Controllers\Partner\DashboardController as PartnerDashboardController;
 use App\Http\Controllers\Responsible\ProfileController as ResponsibleProfileController;
+use App\Http\Controllers\Seller\DashboardController as SellerDashboardController;
 use App\Http\Controllers\Student\CalendarController;
 use App\Http\Controllers\Student\CourseController;
 use App\Http\Controllers\Student\DocumentController as StudentDocumentController;
@@ -198,15 +201,15 @@ Route::middleware(['auth', RedirectByProfile::class])->prefix('diretor')->group(
 
 
 Route::middleware(['auth', RedirectByProfile::class])->prefix('vendedor')->group(function () {
-
+    Route::get('/dashboard', [SellerDashboardController::class, 'index'])->name('vendedor.dashboard');
 });
 
 Route::middleware(['auth', RedirectByProfile::class])->prefix('afiliado')->group(function () {
-
+    Route::get('/dashboard', [PartnerDashboardController::class, 'index'])->name('afiliado.dashboard');
 });
 
 Route::middleware(['auth', RedirectByProfile::class])->prefix('cliente')->group(function () {
-
+    Route::get('/dashboard', [CustomerDashboardController::class, 'index'])->name('cliente.dashboard');
 });
 
 

@@ -1,4 +1,4 @@
-@extends('partner.layout')
+@extends('seller.layout')
 
 @section('title', 'Dashboard')
 
